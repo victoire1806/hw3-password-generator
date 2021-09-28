@@ -6,122 +6,111 @@ function writePassword() {
   var password = generatePassword();
   var passwordText = document.querySelector("#password");
 
-
   
-
   passwordText.value = password;
 
 } 
 
-//console.log(writePassword());
+//console.log(password);
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
 
-//console.log()
 
 
+function generatePassword()
+{
 
-const resultEl = document.getElementById('result');
-const lengthEl = document.getElementById('length');
-const lowerEl = document.getElementById('lower');
-const upperEl = document.getElementById('upper');
-const numbersEl = document.getElementById('numbers');
-const symbolsEl = document.getElementById('symbols');
-const generateEl = document.getElementById('generate');
-const clipboardEl = document.getElementById('clipboard');
+  var lengthEl = prompt("Enter numbers and characters you want for your new password. It must be at least 8 but not more than 128.");
+  var lowerEl = confirm("Enter lowercases in your password?");
+  var upperEl = confirm("Enter upper cases in your password?");
+  var numberEl = confirm("Enter numbers in your password?");
+  var symbolEl = confirm("Enter special characters in your password?");
 
+
+//let generatedPassword = '';
+
+
+// Return empty for lower, upper, number symbol 
+const typesCount = 0;
+
+const typesCountLower = "";
+const typesCountUpper = "";
+const typesCountNum = "";
+const typesCountSymbol = "";
 
 
 
 const randomFunc = {
 
-    lower: getRandomLower, 
-    upper: getRandomUpper,
-    number: getRandomNum,
-    symbol: getRandomSymbol,
-
-}
-
-//Generate listener
-generateEl.addEventListener("click", () => { 
-
-  const length = +lengthEl.value;
-
-  const hasLower = lowercaseEl.checked;
-  const hasUpper = uppercaseEl.checked;
-  const hasNumber = numbercaseEl.checked;
-  const hasSymbol = symbolscaseEl.checked;
-
-resultEl.innerText = generatePassword(
-  
-  hasLower, 
-  hasUpper, 
-  hasNumber, 
-  hasSymbol, 
-  length
-  
-  );
-
-});
-
-function generatePassword(lower, upper, number, symbol, length){
-
-
-let generatedPassword = '';
-
-const typesCount = lower + upper + number + symbol;
-
-
-const typesArr = [{ lower }, { upper }, { number }, { symbol }].filter
-(
-  item => Object.values(item)[0]
-  
-);
-
-if(typesCount ==0){
-
-  return '';
-}
-
-for(let i = 0; i < length; i += typesCount){
-typesArr.forEach(type => {
-        const funcName = Oject.keys(type)[0];
-        
-        
-        generatedPassword += randomFunc[funcName]();
-
-        
-    });
-
-  }
- 
-}
-
-
-
-function getRandomLower() {
+  getRandomLower: function () {
 
   return String.fromCharCode(Math.floor(Math.random() * 26) + 97);
 
-}
-
-function getRandomUpper() {
+},
+  getRandomUpper: function() {
 
   return String.fromCharCode(Math.floor(Math.random() * 26) + 65);
 
-}
+},
 
-function getRandomNum() {
+  getRandomNum: function  () {
 
   return String.fromCharCode(Math.floor(Math.random() * 10) + 48);
 
-}
+},
 
-function getRandomSymbol() {
+getRandomSymbol: function   () {
   const symbols = '!@#$%^&*(){}[]=<>/,.';
   return symbols[Math.floor(Math.random() * symbols.length)];
 
 }
+
+};
+
+if (number === true) {
+  upper = randomFunc.getRandomUpper();
+  typesCount++;
+
+}
+
+if (lower === true) {
+  lower = randomFunc.getRandomLower();
+  typesCount++;
+
+}
+
+if (upper === true) {
+  number = randomFunc.getRandomNum();
+  typesCount++;
+
+}
+
+if (symbol === true) {
+  symbol= randomFunc.getRandomSymbol();
+  typesCount++;
+
+}
+
+
+let generatedPassword = '';
+
+//random characters
+for (let i = 0; i <= (parseInt(length) - typesCount); i++) {
+  var randomNum = Math.floor(Math.random() * 4);
+
+generatedPassword += randomNum;
+
+}
+
+generatedPassword += typesCountLower;
+generatedPassword += typesCountUpper;
+generatedPassword += typesCountNum;
+generatedPassword += typesCountSymbol;
+
+   
+return generatedPassword;
+
+};
 
 //console.log(getRandomSymbol());
